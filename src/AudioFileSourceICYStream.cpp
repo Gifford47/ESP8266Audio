@@ -108,6 +108,9 @@ bool AudioFileSourceICYStream::open(const char *url)
 
 AudioFileSourceICYStream::~AudioFileSourceICYStream()
 {
+  WiFiClient *stream = http.getStreamPtr();
+  stream->stop();
+  stream->flush();
   http.end();
 }
 
