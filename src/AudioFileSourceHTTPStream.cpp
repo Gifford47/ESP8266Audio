@@ -120,9 +120,6 @@ bool AudioFileSourceHTTPStream::open(const char *url)
 
 AudioFileSourceHTTPStream::~AudioFileSourceHTTPStream()
 {
-  WiFiClient *stream = http.getStreamPtr();
-  stream->stop();
-  stream->flush();
   http.end();
 }
 
@@ -249,15 +246,14 @@ bool AudioFileSourceHTTPStream::seek(int32_t pos, int dir)
 
 bool AudioFileSourceHTTPStream::close()
 {
-	
 #ifdef ESP32
   WiFiClient *stream = http.getStreamPtr();
   if (stream && stream->connected() && stream->available())
   {
     stream->stop();
-	stream->flush();
   }
 #endif
+
   http.end();
   eof = true;
   return true;
