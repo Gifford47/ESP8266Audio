@@ -27,6 +27,11 @@
 
 #include <Arduino.h>
 
+#ifndef SPECIAL
+  #define UNDEF_SPECIAL
+  #define SPECIAL 0xf0
+#endif
+
 #ifndef ESP32
 
 class ESP8266SPIRAM {
